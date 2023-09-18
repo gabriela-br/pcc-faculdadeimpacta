@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Lista de Salas</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Capacidade</th>
+                <th>Equipamentos</th>
+                <th>Dias de Funcionamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let room of rooms | async">
+                <td>{{ room.id }}</td>
+                <td>{{ room.nome }}</td>
+                <td>{{ room.capacidade }}</td>
+                <td>{{ room.equipamentos.join(', ') }}</td>
+                <td>{{ room.diasFuncionamento.join(', ') }}</td>
+                <td>
+                    <!-- <button (click)="onUpdateRoom(room)">Atualizar</button> -->
+                    <button (click)="onDeleteRoom(room)">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="onCreateRoom()">Criar Nova Sala</button>
+</div>
