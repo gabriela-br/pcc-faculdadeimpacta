@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CadastroDeSalaService } from '../services/cadastro-de-sala.service';
-import { Room } from '../shared/room.model';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { map } from 'rxjs';
+import { CadastroDeSalaService } from '../../services/cadastro-de-sala.service';
+import { Room } from '../../shared/room.model';
+import { FormArray, FormControl, FormGroup } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

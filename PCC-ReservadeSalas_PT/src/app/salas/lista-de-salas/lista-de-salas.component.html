@@ -20,10 +20,10 @@
                 <td>{{ room.diasFuncionamento.join(', ') }}</td>
                 <td>
                     <!-- <button (click)="onUpdateRoom(room)">Atualizar</button> -->
-                    <button (click)="onDeleteRoom(room)">Excluir</button>
+                    <button class="btn btn-danger" (click)="onDeleteRoom(room)">Excluir</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button (click)="onCreateRoom()">Criar Nova Sala</button>
+    <button class="btn btn-primary" (click)="onCreateRoom()">Criar Nova Sala</button>
 </div>

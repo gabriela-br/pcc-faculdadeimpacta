@@ -58,7 +58,7 @@
       <div class="col-md-5" formArrayName="equipamentos">
         <label for="text">Equipamentos:</label>
         <div class="row" *ngFor="let equipamento of cadastro.get('equipamentos')['controls']; let i = index"
-          [formGroupName]="i" style="margin-top: 10px;">
+        [formGroupName]="i" style="margin-top: 10px;">
           <div class="col-xs-8">
             <input type="text" class="form-control" formControlName="equipamento">
           </div>

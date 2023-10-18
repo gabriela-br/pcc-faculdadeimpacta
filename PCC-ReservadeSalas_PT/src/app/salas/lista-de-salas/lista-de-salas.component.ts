@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CadastroDeSalaService } from '../services/cadastro-de-sala.service';
-import { Room } from '../shared/room.model';
+import { Component, OnInit } from '@angular/core';
+import { CadastroDeSalaService } from '../../services/cadastro-de-sala.service';
+import { Room } from '../../shared/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-de-salas',
@@ -14,13 +13,12 @@ export class ListaDeSalasComponent implements OnInit {
 
   constructor(private cadastroService: CadastroDeSalaService,
     private router: Router,
-    private route: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() { }
 
   onCreateRoom() {
-    this.router.navigate(['/cadastro'], { relativeTo: this.route });
+    this.router.navigate(['/cadastro-de-salas'], { relativeTo: this.route });
   }
 
   onUpdateRoom(room: Room) {
