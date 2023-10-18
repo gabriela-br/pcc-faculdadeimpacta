@@ -1,0 +1,35 @@
+<div class="schedule-form">
+    <h2>Cadastro de Reservas</h2>
+    <div [formGroup]="schedule" *ngIf="schedule">
+      <div class="form-group">
+        <label for="selectedRoom">Sala:</label>
+        <select formControlName="selectedRoom">
+          <option [value]="null">Select an option</option>
+          <option *ngFor="let room of rooms$ | async" [value]="room.id">{{ room.nome }}</option>
+        </select>
+      </div>  
+      <div class="form-group">
+        <label for="nomePessoa">Nome do Solicitante:</label>
+        <input type="text" id="nomePessoa" formControlName="nomePessoa">
+      </div>
+      <div class="form-group">
+        <label for="telefonePessoa">Telefone do Solicitante:</label>
+        <input type="text" id="telefonePessoa" formControlName="telefonePessoa">
+      </div>
+      <div class="form-group">
+        <label for="dataInicio">Data de Início:</label>
+        <input type="datetime-local" id="dataInicio" formControlName="dataInicio">
+      </div>
+      <div class="form-group">
+        <label for="dataFim">Data de Fim:</label>
+        <input type="datetime-local" id="dataFim" formControlName="dataFim">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-success" (click)="onSubmit()">Criar Reserva</button>
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
