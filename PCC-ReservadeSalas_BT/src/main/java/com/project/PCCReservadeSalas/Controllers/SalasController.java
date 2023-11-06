@@ -1,9 +1,11 @@
-package com.project.PCCReservadeSalas;
+package com.project.PCCReservadeSalas.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.project.PCCReservadeSalas.Services.SalasService;
+import com.project.PCCReservadeSalas.Models.Sala;
 
 import java.util.List;
 

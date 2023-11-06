@@ -1,4 +1,4 @@
-package com.project.PCCReservadeSalas;
+package com.project.PCCReservadeSalas.Models;
 
 import jakarta.persistence.*;
 import java.util.List;

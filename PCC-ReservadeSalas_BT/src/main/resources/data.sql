@@ -21,3 +21,8 @@ INSERT INTO equipamentos (sala_id, equipamentos) VALUES (2, 'Quadro Branco');
 
 INSERT INTO dias_funcionamento (sala_id, dias_funcionamento) VALUES (2, 'terca');
 INSERT INTO dias_funcionamento (sala_id, dias_funcionamento) VALUES (2, 'quinta');
+
+
+-- MAPPING RESERVAS
+INSERT INTO reservas (sala_id, nome_pessoa, telefone_pessoa, data_inicio, data_fim)
+VALUES (1, 'Gabriela Ribeiro', '1144610860', '2023-10-09', '2023-10-09')

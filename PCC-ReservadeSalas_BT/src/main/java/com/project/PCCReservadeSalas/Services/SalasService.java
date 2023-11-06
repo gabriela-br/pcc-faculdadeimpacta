@@ -1,7 +1,9 @@
-package com.project.PCCReservadeSalas;
+package com.project.PCCReservadeSalas.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.project.PCCReservadeSalas.Repositories.SalasRepository;
+import com.project.PCCReservadeSalas.Models.Sala;
 
 import java.util.List;
 import java.util.Optional;

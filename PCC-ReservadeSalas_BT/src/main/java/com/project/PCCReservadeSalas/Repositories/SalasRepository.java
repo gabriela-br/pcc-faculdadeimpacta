@@ -1,8 +1,9 @@
-package com.project.PCCReservadeSalas;
+package com.project.PCCReservadeSalas.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
+import com.project.PCCReservadeSalas.Models.Sala;
 
 public interface SalasRepository extends JpaRepository<Sala, Long> {
     List<Sala> findAll();
