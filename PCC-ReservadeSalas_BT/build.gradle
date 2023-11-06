@@ -32,6 +32,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.h2database:h2'
 	testImplementation 'com.h2database:h2'
+	
+    implementation group: 'org.ehcache', name: 'ehcache', version: '3.4.0'
+    implementation group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.2.8.Final'
 }
 
 tasks.named('test') {
