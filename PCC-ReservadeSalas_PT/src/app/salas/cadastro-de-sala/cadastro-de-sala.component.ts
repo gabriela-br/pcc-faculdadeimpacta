@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroDeSalaService } from '../../services/cadastro-de-sala.service';
 import { Room } from '../../shared/room.model';
-import { FormArray, FormControl, FormGroup } from '@angular/forms'
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
+
+function atLeastOneDaySelected(control: AbstractControl): { [key: string]: boolean } | null {
+  const days = ['segunda', 'terca', 'quarta', 'quinta', 'sexta'];
+  const selectedDays = days.filter((day) => control.get(day)?.value);
+
+  return selectedDays.length >= 1 ? null : { noDaysSelected: true };
+}
 
 @Component({
   selector: 'app-cadastro-de-sala',
@@ -42,10 +49,14 @@ export class CadastroDeSalaComponent implements OnInit {
     this.router.navigate([''], { relativeTo: this.route });
   }
 
+  get isFormValid(): boolean {
+    return this.cadastro.valid && (this.cadastro.touched || this.cadastro.dirty);
+  }
+
   private InitForm() {
     let id = null;
     let nome = '';
-    let equipamentos = new FormArray([]);
+    let equipamentos = new FormArray([], Validators.required);
     let capacidade = '';
     let segunda = false;
     let terca = false;
@@ -55,15 +66,15 @@ export class CadastroDeSalaComponent implements OnInit {
 
     this.cadastro = new FormGroup({
       id: new FormControl(id),
-      nome: new FormControl(nome),
+      nome: new FormControl(nome, Validators.required),
       equipamentos: equipamentos,
-      capacidade: new FormControl(capacidade),
+      capacidade: new FormControl(capacidade, Validators.required),
       segunda: new FormControl(segunda),
       terca: new FormControl(terca),
       quarta: new FormControl(quarta),
       quinta: new FormControl(quinta),
-      sexta: new FormControl(sexta)
-    })
+      sexta: new FormControl(sexta),
+    }, { validators: atLeastOneDaySelected });
   }
 
   mapFormGroupToModel(): Room {

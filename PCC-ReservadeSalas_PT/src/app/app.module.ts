@@ -9,6 +9,7 @@ import { CadastroDeSalaComponent } from './salas/cadastro-de-sala/cadastro-de-sa
 import { ListaDeSalasComponent } from './salas/lista-de-salas/lista-de-salas.component';
 import { CadastroDeReservasComponent } from './reserva-de-salas/cadastro-de-reservas/cadastro-de-reservas.component';
 import { ListaDeReservasComponent } from './reserva-de-salas/lista-de-reservas/lista-de-reservas.component';
+import { TimeRangeDirective } from './directives/time-range.directive';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ListaDeReservasComponent } from './reserva-de-salas/lista-de-reservas/l
     CadastroDeSalaComponent,
     ListaDeSalasComponent,
     CadastroDeReservasComponent,
-    ListaDeReservasComponent
+    ListaDeReservasComponent,
+    TimeRangeDirective
   ],
   imports: [
     BrowserModule,

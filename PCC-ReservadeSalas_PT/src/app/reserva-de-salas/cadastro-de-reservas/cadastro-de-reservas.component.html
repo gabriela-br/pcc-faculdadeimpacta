@@ -2,13 +2,6 @@
     <h2>Cadastro de Reservas</h2>
     <div [formGroup]="schedule" *ngIf="schedule">
       <div class="form-group">
-        <label for="selectedRoom">Sala:</label>
-        <select formControlName="selectedRoom">
-          <option [value]="null">Select an option</option>
-          <option *ngFor="let room of rooms$ | async" [value]="room.id">{{ room.nome }}</option>
-        </select>
-      </div>  
-      <div class="form-group">
         <label for="nomePessoa">Nome do Solicitante:</label>
         <input type="text" id="nomePessoa" formControlName="nomePessoa">
       </div>
@@ -16,17 +9,52 @@
         <label for="telefonePessoa">Telefone do Solicitante:</label>
         <input type="text" id="telefonePessoa" formControlName="telefonePessoa">
       </div>
-      <div class="form-group">
+      <div class="form-group" (change)="onChange()">
         <label for="dataInicio">Data de Início:</label>
-        <input type="datetime-local" id="dataInicio" formControlName="dataInicio">
+        <input type="datetime-local" id="dataInicio" formControlName="dataInicio" appTimeRange>
+        <div *ngIf="schedule.get('dataInicio').hasError('timeRangeError')">
+          <div class="alert alert-danger">Por favor selecione um horário entre 8h e 19h</div>
+        </div>
+        <div *ngIf="schedule.get('dataInicio').hasError('futureDate') && (schedule.get('dataInicio').touched || schedule.get('dataInicio').dirty)">
+          <div class="alert alert-danger">A data de início deve ser no futuro.</div>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" (change)="onChange()">
         <label for="dataFim">Data de Fim:</label>
-        <input type="datetime-local" id="dataFim" formControlName="dataFim">
+        <input type="datetime-local" id="dataFim" formControlName="dataFim" appTimeRange>
+        <div *ngIf="schedule.get('dataFim').hasError('timeRangeError')">
+          <div class="alert alert-danger">Por favor selecione um horário entre 8h e 19h</div>
+        </div>
+        <div *ngIf="schedule.get('dataFim').hasError('futureDate') && (schedule.get('dataFim').touched || schedule.get('dataFim').dirty)">
+          <div class="alert alert-danger">A data de fim deve ser no futuro.</div>
+        </div>
+        <div *ngIf="schedule.get('dataFim').hasError('dateAfter') && (schedule.get('dataFim').touched || schedule.get('dataFim').dirty)">
+          <div class="alert alert-danger">A data de fim deve ser posterior à data de início.</div>
+        </div>
+      </div>  
+      <div *ngIf="showListOfRooms" class="form-group">
+        <label for="selectedRoom">Sala:</label>
+        <select formControlName="selectedRoom" (change)="onRoomSelectionChange($event)">
+          <option [value]="null">Select an option</option>
+          <option *ngFor="let room of availableRooms$ | async" [value]="room.id">{{ room.nome }}</option>
+        </select>
+      </div> 
+      <div class="alert alert-warning" *ngIf="(availableRooms$ | async) && (availableRooms$ | async).length <= 0">
+        Nenhuma sala disponível para esse período
+      </div>    
+      <div *ngIf="selectedRoom" class="card">
+        <div class="card-body">
+          <h5 class="card-title">Detalhes da Sala</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>ID:</strong> {{ selectedRoom.id }}</li>
+            <li class="list-group-item"><strong>Nome:</strong> {{ selectedRoom.nome }}</li>
+            <li class="list-group-item"><strong>Dias de Funcionamento:</strong> {{ selectedRoom.diasFuncionamento }}</li>
+          </ul>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-            <button type="submit" class="btn btn-success" (click)="onSubmit()">Criar Reserva</button>
+            <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!isFormValid">Criar Reserva</button>
             <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>

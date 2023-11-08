@@ -9,6 +9,7 @@ import com.project.PCCReservadeSalas.Models.Reserva;
 
 import java.util.List;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 // @CrossOrigin(origins = "*")
 @RestController
@@ -26,9 +27,11 @@ public class ReservasController {
 
     @GetMapping("/concorrentes")
     public ResponseEntity<List<Reserva>> listarReservasConcorrentes(
-        @RequestParam(value = "dataInicio", required = true) LocalDateTime dataInicio,
-        @RequestParam(value = "dataFim", required = true) LocalDateTime dataFim) {
-            List<Reserva> reservas = ReservasService.listarReservasConcorrentes(dataInicio, dataFim);
+        @RequestParam(value = "dataInicio", required = true) String dataInicio,
+        @RequestParam(value = "dataFim", required = true) String dataFim) {
+            LocalDateTime localDataInicio = LocalDateTime.parse(dataInicio, DateTimeFormatter.ISO_DATE_TIME);
+            LocalDateTime localDataFim = LocalDateTime.parse(dataFim, DateTimeFormatter.ISO_DATE_TIME);
+            List<Reserva> reservas = ReservasService.listarReservasConcorrentes(localDataInicio, localDataFim);
             return new ResponseEntity<>(reservas, HttpStatus.OK);            
     }
 
