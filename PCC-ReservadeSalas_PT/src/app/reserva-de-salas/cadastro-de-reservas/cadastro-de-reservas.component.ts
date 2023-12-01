@@ -31,12 +31,12 @@ export class CadastroDeReservasComponent  implements OnInit {
     this.reservaService.addSchedule(
         this.GetScheduleFromForm()
       ).subscribe( () => {
-        this.router.navigate([''], { relativeTo: this.route });
+        this.router.navigate(['/lista-de-reservas'], { relativeTo: this.route });
     });
   }
 
   onCancel() {
-    this.router.navigate([''], { relativeTo: this.route });
+    this.router.navigate(['/lista-de-reservas'], { relativeTo: this.route });
   }
 
   onChange(){

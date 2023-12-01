@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +10,9 @@ import { ListaDeSalasComponent } from './salas/lista-de-salas/lista-de-salas.com
 import { CadastroDeReservasComponent } from './reserva-de-salas/cadastro-de-reservas/cadastro-de-reservas.component';
 import { ListaDeReservasComponent } from './reserva-de-salas/lista-de-reservas/lista-de-reservas.component';
 import { TimeRangeDirective } from './directives/time-range.directive';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { TimeRangeDirective } from './directives/time-range.directive';
     ListaDeSalasComponent,
     CadastroDeReservasComponent,
     ListaDeReservasComponent,
-    TimeRangeDirective
+    TimeRangeDirective,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,13 @@ import { TimeRangeDirective } from './directives/time-range.directive';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

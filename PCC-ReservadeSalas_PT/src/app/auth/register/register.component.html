@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="register-container">
+    <h2>Cadastro de conta</h2>
+    <div *ngIf="registerSuccess" class="success-message">Registro bem sucedido! Você já pode logar.</div>
+    <div *ngIf="registerError" class="error-message">{{ registerError }}</div>
+    <form (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="user.username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="user.password" required />
+      </div>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <button (click)="goToLogin()">Ir para Login</button>
+  </div>
+</div>

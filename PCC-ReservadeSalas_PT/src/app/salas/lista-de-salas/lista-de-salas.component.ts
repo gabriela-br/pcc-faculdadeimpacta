@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CadastroDeSalaService } from '../../services/cadastro-de-sala.service';
 import { Room } from '../../shared/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-lista-de-salas',
@@ -9,16 +10,24 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./lista-de-salas.component.css']
 })
 export class ListaDeSalasComponent implements OnInit {
+  user: User;
   rooms = this.cadastroService.getAllRooms();
 
   constructor(private cadastroService: CadastroDeSalaService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { 
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        this.user = JSON.parse(currentUser);
+      }
+    }
 
   ngOnInit() { }
 
   onCreateRoom() {
-    this.router.navigate(['/cadastro-de-salas'], { relativeTo: this.route });
+    if (this.userIsAdmin()) {
+      this.router.navigate(['/cadastro-de-salas'], { relativeTo: this.route });
+    }
   }
 
   onUpdateRoom(room: Room) {
@@ -26,12 +35,18 @@ export class ListaDeSalasComponent implements OnInit {
   }
 
   onDeleteRoom(room: Room) {
-    this.cadastroService.deleteRoom(room.id).subscribe(() => {
-      this.refreshPage();
-    });
+    if (this.userIsAdmin()) {
+      this.cadastroService.deleteRoom(room.id).subscribe(() => {
+        this.refreshPage();
+      });
+    }
   }
 
   refreshPage() {
     this.rooms = this.cadastroService.getAllRooms();
+  }
+
+  userIsAdmin(): boolean {
+    return this.user && this.user.authorities.some((authority) => authority.authority === 'ROLE_ADMIN');
   }
 }

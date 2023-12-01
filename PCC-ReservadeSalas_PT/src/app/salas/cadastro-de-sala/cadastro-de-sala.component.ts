@@ -30,7 +30,7 @@ export class CadastroDeSalaComponent implements OnInit {
     this.cadastroService.addRoom(
       this.mapFormGroupToModel()
     ).subscribe( () => {
-      this.router.navigate([''], { relativeTo: this.route });
+      this.router.navigate(['/lista-de-salas'], { relativeTo: this.route });
     });
   }
 
@@ -46,7 +46,7 @@ export class CadastroDeSalaComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate([''], { relativeTo: this.route });
+    this.router.navigate(['/lista-de-salas'], { relativeTo: this.route });
   }
 
   get isFormValid(): boolean {

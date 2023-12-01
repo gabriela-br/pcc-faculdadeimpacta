@@ -9,6 +9,8 @@ import com.project.PCCReservadeSalas.Models.Sala;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 // @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/salas")
@@ -25,6 +27,7 @@ public class SalasController {
 
     // Endpoint para criar uma nova sala
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Sala> cadastrarSala(@RequestBody Sala sala) {
         Sala novaSala = SalasService.cadastrarSala(sala);
         return new ResponseEntity<>(novaSala, HttpStatus.CREATED);
@@ -32,6 +35,7 @@ public class SalasController {
 
     // Endpoint para atualizar uma sala existente por ID
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Sala> atualizarSala(@PathVariable("id") Long id, @RequestBody Sala sala) {
         Sala salaAtualizada = SalasService.atualizarSala(id, sala);
         if (salaAtualizada != null) {
@@ -43,6 +47,7 @@ public class SalasController {
 
     // Endpoint para deletar uma sala por ID
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deletarSala(@PathVariable("id") Long id) {
         boolean salaDeletada = SalasService.deletarSala(id);
         if (salaDeletada) {

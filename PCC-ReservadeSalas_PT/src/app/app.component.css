@@ -1,13 +1,14 @@
+
 .navbar {
     background-color: #007bff;
     color: #fff;
     padding: 10px;
+    justify-content: space-between; 
 }
 
 .navbar a.nav-link {
     color: #fff;
     text-decoration: none;
-    margin: 0 15px;
     font-weight: bold;
 }
 
@@ -22,10 +23,8 @@
 .button-list {
     list-style: none;
     padding: 0;
-}
-
-.button-list li {
-    margin: 5px 0;
+    display: flex;
+    align-items: center;
 }
 
 .button-list a {
@@ -44,4 +43,12 @@
 .button-list a:hover {
     background-color: #0056b3;
     color: #fff;
+}
+
+.navbar-nav {
+    height: 100%;
+}
+
+#logout {
+    float: right;
 }

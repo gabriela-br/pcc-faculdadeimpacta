@@ -10,13 +10,21 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "sala_id")
     private Sala sala;
+
+    @ManyToOne
+    @JoinColumn(name = "user_username", referencedColumnName = "username")
+    private User user;
+
     private String nomePessoa;
     private String telefonePessoa;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
+
+    
 
     // Construtores
     public Reserva() {
@@ -45,6 +53,14 @@ public class Reserva {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNomePessoa() {

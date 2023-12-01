@@ -8,6 +8,7 @@ import com.project.PCCReservadeSalas.Repositories.ReservasRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservasService {
@@ -22,6 +23,12 @@ public class ReservasService {
     // Método para listar todas as Reservas
     public List<Reserva> listarReservas() {
         return ReservasRepository.findAll();
+    }
+
+    public List<Reserva> listarReservasByUser(String name) {
+        return ReservasRepository.findAll().stream()
+                .filter(reserva -> reserva.getUser() != null && reserva.getUser().getUsername().equals(name))
+                .collect(Collectors.toList());
     }
 
     public List<Reserva> listarReservasConcorrentes(LocalDateTime dataInicio, LocalDateTime dataFim){
@@ -69,5 +76,4 @@ public class ReservasService {
             return false;
         }
     }
-
 }
